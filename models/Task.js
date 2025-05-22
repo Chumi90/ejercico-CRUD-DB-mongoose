@@ -4,8 +4,8 @@ const mongoose=require('mongoose');
 const taskMogoose=new mongoose.Schema({
     title: String,
     completed: String
-},{timestamps:true});
+},{timestamps:false});
 
 const task=mongoose.model('task',taskMogoose);//Importamos el modelo de los datos
 
-module.exports=taskMogoose;
+module.exports=task;

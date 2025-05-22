@@ -1,13 +1,11 @@
 const express=require('express');//iniciamos express
 const router=express.Router();//requerimos como ruta
-const taskMogoose=require('../models/Task.js');//Obtenemos el modelo de datos
+const task=require('../models/Task.js');//Obtenemos el modelo de datos
 
 //POST '/create' Create the task
 router.post('/create',async(req,res)=>{
     try{
-        
-        const task= await taskMogoose.create(req.body);
-        console.log('pasa');
+        const task= await task.create(req.body);
         res.status(201).send(task);
         
     }catch{
@@ -19,7 +17,7 @@ router.post('/create',async(req,res)=>{
 // router.get('/:task',(req, res)=>{
 //     const {task}=req.params;
 //     try{
-//         task.find().then((data)=>res.json(task));
+//         task.find().then((data)=>req.json(task));
 //     }catch{
 //         res.status(500).send({message: "There was a problem trying to get a task"});
 //     }
@@ -28,7 +26,7 @@ router.post('/create',async(req,res)=>{
 // router.get('/id/:id',(req, res)=>{
 //     const{id}=req.params;//Recoge el id de los parámetros
 //     try{
-//         Task.findById(id).then((data)=>res.json(data));
+//         Task.findById(id).then((data)=>req.json(data));
 //     }catch{
 //         res.status(500).send({message: "There was a problem trying to get a task"});
 //     }
