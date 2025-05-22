@@ -50,17 +50,17 @@ router.put('/markAsCompleted/:_id',async(req,res)=>{
 })
 
 //DELETE a task by ID "/id/:_id:"
-// router.delete('id/:_id',async(req,res)=>{
-//     const {id}=req.params;
-//     try{
-//         console.log(id)
-//         const deletTask=Task.deleteOne(id);
-//         res.json({ message: "Task successfully deleted", deletTask });
+router.delete('/id/:_id',async(req,res)=>{
+    const id=req.params;
+    try{
+        console.log(id)
+        const deletTask=await Task.deleteOne(id);
+        res.json({ message: "Task successfully deleted", deletTask });
 
-//     }catch{
-//         res.status(500).send({message: "There was a problem trying to delete a task"});
-//     }
-// })
+    }catch{
+        res.status(500).send({message: "There was a problem trying to delete a task"});
+    }
+})
 
 
 module.exports=router;
