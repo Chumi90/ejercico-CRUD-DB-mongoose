@@ -1,11 +1,11 @@
 const express=require('express');//iniciamos express
 const router=express.Router();//requerimos como ruta
-const task=require('../models/Task.js');//Obtenemos el modelo de datos
+const Task=require('../models/Task.js');//Obtenemos el modelo de datos
 
 //POST '/create' Create the task
 router.post('/create',async(req,res)=>{
     try{
-        const task= await task.create(req.body);
+        const task= await Task.create(req.body);
         res.status(201).send(task);
         
     }catch{
@@ -14,23 +14,27 @@ router.post('/create',async(req,res)=>{
 });
 
 //GET require Task "/:"
-// router.get('/:task',(req, res)=>{
-//     const {task}=req.params;
-//     try{
-//         task.find().then((data)=>req.json(task));
-//     }catch{
-//         res.status(500).send({message: "There was a problem trying to get a task"});
-//     }
-// })
-// //GET require Task by ID "/id/:_id:"
-// router.get('/id/:id',(req, res)=>{
-//     const{id}=req.params;//Recoge el id de los parámetros
-//     try{
-//         Task.findById(id).then((data)=>req.json(data));
-//     }catch{
-//         res.status(500).send({message: "There was a problem trying to get a task"});
-//     }
-// })
+router.get('/',async(req, res)=>{
+    const {task}=req.params;
+    try{
+        const tasks = await Task.find();
+        res.json(tasks);
+    }catch{
+        res.status(500).send({message: "There was a problem trying to get a task"});
+    }
+})
+//GET require Task by ID "/id/:_id:"
+router.get('/id/:id',async(req, res)=>{
+    const{id}=req.params;//Recoge el id de los parámetros
+    console.log(id);
+    try{
+        const utasks = await Task.findById(id);
+        console.log(utasks)
+        res.json(utasks);
+    }catch{
+        res.status(500).send({message: "There was a problem trying to get a task"});
+    }
+})
 //PUT update an ID "/markAsCompleted/:_id:"
 // router.put('/markAsCompleted/:_id',(req,res)=>{
 //     try{

@@ -23,7 +23,7 @@ La estructura será la siguiente:
 
 1. Configuración
 - Lo primero es inicializar nuestro proyecto de node
-- Lo segundo es hacer npm install para instalar las dependencias de package.json
+- Lo segundo es hacer npm install para instalar las dependencias de package.json (express, dotenv, mongoose)
 - Crearemos un servidor http con express en app.js
 
 2. Paso a paso 
