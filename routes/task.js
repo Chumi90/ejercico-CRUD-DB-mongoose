@@ -26,8 +26,8 @@ router.get('/',async(req, res)=>{
 //GET require Task by ID "/id/:_id:"
 router.get('/id/:id',async(req, res)=>{
     const{id}=req.params;//Recoge el id de los parámetros
-    console.log(id);
     try{
+        console.log(id)
         const utasks = await Task.findById(id);
         console.log(utasks)
         res.json(utasks);
@@ -36,29 +36,27 @@ router.get('/id/:id',async(req, res)=>{
     }
 })
 //PUT update an ID "/markAsCompleted/:_id:"
-// router.put('/markAsCompleted/:_id',(req,res)=>{
-//     try{
-//         const {id}=req.params;
-//         Task.updateOne({$set:{_id}}).then((data)=>res.json(data));
-//     }catch{
-//         res.status(500).send({message: "There was a problem trying to update ID"});
-//     }
-// })
-//PUT uptdate a Task by ID "/id/:_id:"
-// router.put('/markAsCompleted/:_id',(req,res)=>{
-//     try{
-//         const {id}=req.params;
-//         const {title, completed}=req.body;
-//         Task.updateOne({_id: id},{$set:{title,completed}}).then((data)=>res.json(data));
-//     }catch{
-//         res.status(500).send({message: "There was a problem trying to update a task"});
-//     }
-// })
+router.put('/markAsCompleted/:_id',async(req,res)=>{
+    const id=req.params;//Requerimos el id de la URL
+    const title = req.body.title; //obtenemos el valor del título de la task
+    try{
+        console.log(id)
+        console.log(title)
+        const updateTitleTask = await Task.findByIdAndUpdate(id,{title}, {new: true})//Actualizamos el title de la task
+        res.json(updateTitleTask)//enviamos los datos a la base de datos
+    }catch{
+        res.status(500).send({message: "There was a problem trying to update ID"});
+    }
+})
+
 //DELETE a task by ID "/id/:_id:"
-// router.delete('id/:_id',(req,res)=>{
+// router.delete('id/:_id',async(req,res)=>{
 //     const {id}=req.params;
 //     try{
-//         taskMogoose.updateOne({_id:id}).then((data)=>res.json(data))
+//         console.log(id)
+//         const deletTask=Task.deleteOne(id);
+//         res.json({ message: "Task successfully deleted", deletTask });
+
 //     }catch{
 //         res.status(500).send({message: "There was a problem trying to delete a task"});
 //     }
